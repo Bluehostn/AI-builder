@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from "@/components/auth/AuthProvider";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import ProjectEditor from "./components/project/ProjectEditor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/project/:id" 
+              element={
+                <ProtectedRoute>
+                  <ProjectEditor projectId="1" />
                 </ProtectedRoute>
               } 
             />

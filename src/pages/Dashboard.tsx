@@ -27,6 +27,7 @@ import {
   Users
 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import AIChat from '@/components/ai/AIChat';
 
 interface Project {
   id: string;
@@ -43,6 +44,7 @@ const Dashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -158,7 +160,11 @@ const Dashboard = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setIsChatOpen(true)}
+            >
               <Sparkles className="w-4 h-4 mr-2" />
               مساعد الذكاء الاصطناعي
             </Button>
@@ -368,7 +374,11 @@ const Dashboard = () => {
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between text-sm text-muted-foreground">
                     <span>آخر تحديث: {new Date(project.updated_at).toLocaleDateString('ar')}</span>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => window.location.href = `/project/${project.id}`}
+                    >
                       فتح المشروع
                     </Button>
                   </div>
@@ -378,6 +388,9 @@ const Dashboard = () => {
           </div>
         )}
       </main>
+
+      {/* AI Chat Component */}
+      <AIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 };
